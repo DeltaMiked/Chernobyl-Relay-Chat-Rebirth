@@ -52,33 +52,44 @@ namespace Chernobyl_Relay_Chat
 
         public static void OnChannelMessage(string nick, string message)
         {
-            clientDisplay?.AddMessage(nick, message, Color.Black);
+            clientDisplay?.AddMessage(nick, message, Color.Black, Color.Black);
+        }
+
+        // method overloaded OnChannelMessage for messagecolors
+        public static void OnChannelMessage(string nick, string message, Color NickColor, Color MessageColor)
+        {
+            clientDisplay?.AddMessage(nick, message, NickColor, MessageColor);
         }
 
         public static void OnOwnChannelMessage(string nick, string message)
         {
-            clientDisplay?.AddMessage(nick, message, Color.Gray);
+            clientDisplay?.AddMessage(nick, message, Color.Gray, Color.Black);
+        }
+        // method overloaded onOwnChannelMessage for messagecolors
+        public static void OnOwnChannelMessage(string nick, string message, Color NickColor, Color MessageColor)
+        {
+            clientDisplay?.AddMessage(nick, message, NickColor, MessageColor);
         }
 
         public static void OnQueryMessage(string from, string to, string message)
         {
             if (CRCOptions.SoundNotifications)
                 SystemSounds.Asterisk.Play();
-            clientDisplay?.AddMessage(from + " -> " + to, message, Color.DeepPink);
+            clientDisplay?.AddMessage(from + " -> " + to, message, Color.DeepPink, Color.Black);
         }
 
         public static void OnMoneySent(string from, string to, string message)
         {
             if (CRCOptions.SoundNotifications)
                 SystemSounds.Asterisk.Play();
-            clientDisplay?.AddMessage(from + CRCStrings.Localize("crc_money") + to, message + " RUB", Color.DarkBlue);
+            clientDisplay?.AddMessage(from + CRCStrings.Localize("crc_money") + to, message + " RUB", Color.DarkBlue, Color.Black);
         }
 
         public static void OnMoneyRecv(string from, string message)
         {
             if (CRCOptions.SoundNotifications)
                 SystemSounds.Asterisk.Play();
-            clientDisplay?.AddMessage(from + CRCStrings.Localize("crc_money_recv"), message + " RUB!", Color.DarkBlue);
+            clientDisplay?.AddMessage(from + CRCStrings.Localize("crc_money_recv"), message + " RUB!", Color.DarkBlue, Color.Black);
         }
 
         public static void OnGotKicked()

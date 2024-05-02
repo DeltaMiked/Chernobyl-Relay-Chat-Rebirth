@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace Chernobyl_Relay_Chat
 {
@@ -34,6 +35,13 @@ namespace Chernobyl_Relay_Chat
             checkBoxNewsSound.Text = CRCStrings.Localize("options_news_sound");
             checkBoxCloseChat.Text = CRCStrings.Localize("options_close_chat");
             checkBoxSoundToggle.Text = CRCStrings.Localize("options_sound_notif");
+            checkBoxNameColorToggle.Text = CRCStrings.Localize("options_colored_names");
+            checkBoxMessageColorToggle.Text = CRCStrings.Localize("options_colored_messages");
+            checkBoxIngameColoredMessages.Text = CRCStrings.Localize("options_ingame_colored_messages");
+
+            BlockListLabel.Text = CRCStrings.Localize("options_blocklist_label");
+            BlockListAddButton.Text = CRCStrings.Localize("options_blocklist_addbutton");
+            BlockListRemoveButton.Text = CRCStrings.Localize("options_blocklist_removebutton");
 
             linkLabelDiscord.Text = CRCStrings.Localize("options_discord_link");
             toolTip1.SetToolTip(linkLabelDiscord, CRCStrings.Localize("options_discord_tooltip"));
@@ -56,6 +64,15 @@ namespace Chernobyl_Relay_Chat
             textBoxChatKey.Text = CRCOptions.ChatKey;
             checkBoxCloseChat.Checked = CRCOptions.CloseChat;
             checkBoxNewsSound.Checked = CRCOptions.NewsSound;
+
+            checkBoxNameColorToggle.Checked = CRCOptions.NameColor;
+            checkBoxMessageColorToggle.Checked = CRCOptions.MessageColor;
+            checkBoxIngameColoredMessages.Checked = CRCOptions.IngameMessageColor;
+
+            CRCOptions.BlockList.ForEach(Item =>
+            {
+                BlockList.Items.Add(Item);
+            });
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -88,6 +105,10 @@ namespace Chernobyl_Relay_Chat
             CRCOptions.ChatKey = textBoxChatKey.Text;
             CRCOptions.NewsSound = checkBoxNewsSound.Checked;
             CRCOptions.CloseChat = checkBoxCloseChat.Checked;
+
+            CRCOptions.NameColor = checkBoxNameColorToggle.Checked;
+            CRCOptions.MessageColor = checkBoxMessageColorToggle.Checked;
+            CRCOptions.IngameMessageColor = checkBoxIngameColoredMessages.Checked;
 
             CRCOptions.Save();
             CRCClient.UpdateSettings();
@@ -177,7 +198,23 @@ namespace Chernobyl_Relay_Chat
 
         private void linkLabelDiscord_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("explorer.exe", "https://discord.gg/m9yfGYq8Sy");
+            Process.Start("explorer.exe", "https://discord.gg/bCAwwqzJ3J");
+        }
+
+        private void BlockListRemoveButton_Click(object sender, EventArgs e)
+        {
+            string Text = BlockList.GetItemText(BlockList.SelectedItem);
+            BlockList.Items.Remove(Text);
+            CRCOptions.BlockList.Remove(Text.ToString());
+        }
+
+        private void BlockListAddButton_Click(object sender, EventArgs e)
+        {
+            Text = BlockListTextBox.Text;
+            // Perhaps add a check here for special characters
+            BlockList.Items.Add(Text);
+            CRCOptions.BlockList.Add(Text.ToString());
+
         }
     }
 }

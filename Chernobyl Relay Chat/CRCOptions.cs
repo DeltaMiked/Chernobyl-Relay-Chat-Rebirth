@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Security;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Chernobyl_Relay_Chat
 {
@@ -37,6 +39,12 @@ namespace Chernobyl_Relay_Chat
         public static string ChatKey;
         public static bool NewsSound;
         public static bool CloseChat;
+
+        public static bool NameColor;
+        public static bool MessageColor;
+        public static bool IngameMessageColor;
+
+        public static List<string> BlockList;
 
         private static readonly Dictionary<string, string> defaultChannel = new Dictionary<string, string>()
         {
@@ -100,6 +108,12 @@ namespace Chernobyl_Relay_Chat
                 NewsSound = Convert.ToBoolean((string)registry.GetValue("NewsSound", "True"));
                 CloseChat = Convert.ToBoolean((string)registry.GetValue("CloseChat", "True"));
 
+                NameColor = Convert.ToBoolean((string)registry.GetValue("NameColor", "False"));
+                MessageColor = Convert.ToBoolean((string)registry.GetValue("MessageColor", "False"));
+                IngameMessageColor = Convert.ToBoolean((string)registry.GetValue("IngameMessageColor", "False"));
+
+                BlockList = (registry.GetValue("BlockList", "")).ToString().Split(',').ToList();
+
                 Save();
                 return true;
             }
@@ -132,6 +146,13 @@ namespace Chernobyl_Relay_Chat
             registry.SetValue("ChatKey", ChatKey);
             registry.SetValue("NewsSound", NewsSound);
             registry.SetValue("CloseChat", CloseChat);
+
+            registry.SetValue("NameColor", NameColor);
+            registry.SetValue("MessageColor", MessageColor);
+            registry.SetValue("IngameMessageColor", IngameMessageColor);
+
+            registry.SetValue("BlockList", string.Join(",", BlockList));
+
         }
     }
 }

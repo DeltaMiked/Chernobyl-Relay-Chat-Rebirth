@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Drawing;
+
 #if DEBUG
 using System.Threading;
 #endif
@@ -136,7 +138,7 @@ namespace Chernobyl_Relay_Chat
 
         public static void Send(string message)
         {
-            if ((DateTime.Now - lastMessage).TotalSeconds < 5)
+            if ((DateTime.Now - lastMessage).TotalSeconds < 1)
             {
                 CRCGame.AddError(CRCStrings.Localize("crc_message_cooldown"));
                 CRCDisplay.AddError(CRCStrings.Localize("crc_message_cooldown"));
@@ -275,9 +277,21 @@ namespace Chernobyl_Relay_Chat
                     Match userdataMatch = userdataRx.Match(e.CtcpParameter);
                     if (userdataMatch.Success)
                     {
-                        userData[userdataMatch.Groups[1].Value].User = userdataMatch.Groups[1].Value;
-                        userData[userdataMatch.Groups[1].Value].Faction = CRCStrings.ValidateFaction(userdataMatch.Groups[2].Value);
-                        userData[userdataMatch.Groups[1].Value].IsInGame = userdataMatch.Groups[3].Value;
+                        try
+                        {
+                            userData[from].User = from; // There have been changes here that I am not sure of the consequences, in case of anything going wrong looking here might be worth the time
+                            userData[from].Faction = CRCStrings.ValidateFaction(userdataMatch.Groups[2].Value);
+                            userData[from].IsInGame = userdataMatch.Groups[3].Value;
+                        }
+                        catch (Exception ex)
+                        { // Fix name and RTCP name mismatch bug
+                            if (ex is KeyNotFoundException)
+                            {
+                                CRCDisplay.AddError($"{from} name and userdata mismatch");
+                                CRCGame.AddError($"{from} name and userdata mismatch");
+                            }
+                            else throw;
+                        }
 #if DEBUG
                         var debug = JsonConvert.SerializeObject(userData);
                         System.Diagnostics.Debug.WriteLine(debug);
@@ -360,6 +374,8 @@ namespace Chernobyl_Relay_Chat
         private static void OnChannelMessage(object sender, IrcEventArgs e)
         {
             string fakeNick, faction;
+            Color nickColor = Color.Black; //Default value for nickname color
+            Color messageColor = Color.Black; //Default values for message color 
             string message = GetMetadata(e.Data.Message, out fakeNick, out faction);
             // If some cheeky m8 just sends delimiters, ignore it
             if (message.Length > 0)
@@ -392,17 +408,32 @@ namespace Chernobyl_Relay_Chat
                 }
                 else
                     return;
+
+
+
+                Color factionColor = CRCStrings.GetMessageColor(faction);
+                if (CRCOptions.BlockList.Contains(nick)) { return; }
+                if (CRCOptions.NameColor) { nickColor = factionColor; } // If the name color option is turned on, get the color from the list of colors
+                if (CRCOptions.MessageColor) { messageColor = factionColor; }
+
+                
+
                 if (message.Contains(CRCOptions.Name))
                 {
                     if (CRCOptions.SoundNotifications)
                         SystemSounds.Asterisk.Play();
                     CRCDisplay.OnHighlightMessage(nick, message);
                     CRCGame.OnHighlightMessage(nick, faction, message);
+ 
                 }
                 else
                 {
-                    CRCDisplay.OnChannelMessage(nick, message);
-                    CRCGame.OnChannelMessage(nick, faction, message);
+                     CRCDisplay.OnChannelMessage(nick, message, nickColor, messageColor);
+                     if (CRCOptions.IngameMessageColor)
+                     { // code that deals with the ingame color of the message
+                        if (faction != "actor_anonymous") { message = $"%c[255,{factionColor.R},{factionColor.G},{factionColor.B}]" + message; } // Lazy fix for messages being displayed in black text
+                     }
+                     CRCGame.OnChannelMessage(nick, faction, message);
                 }
             }
         }
@@ -417,7 +448,8 @@ namespace Chernobyl_Relay_Chat
                 string fakeNick, faction;
                 string message = GetMetadata(e.Data.Message, out fakeNick, out faction);
                 string nick = e.Data.Nick;
-                CRCDisplay.OnMoneyRecv(nick, message);
+                if (CRCOptions.BlockList.Contains(nick)) { CRCDisplay.AddError($"Blocked user {nick} tried paying money"); CRCGame.AddError($"Blocked user {nick} tried paying money");return; }; //Blocked user check thingamajig
+                CRCDisplay.OnMoneyRecv(nick, message); 
                 CRCGame.OnMoneyRecv(nick, message);
             }
             else
@@ -443,6 +475,7 @@ namespace Chernobyl_Relay_Chat
                 {
                     faction = "actor_stalker";
                 }
+                if (CRCOptions.BlockList.Contains(nick)) { return; }; //Blocked user check thingamajig
                 CRCDisplay.OnQueryMessage(nick, CRCOptions.Name, message);
                 CRCGame.OnQueryMessage(nick, CRCOptions.Name, faction, message);
             }

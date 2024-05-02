@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -199,6 +200,29 @@ namespace Chernobyl_Relay_Chat
             "actor_isg",
         };
 
+        private static Dictionary<string, Color> FactionMessageColor = new Dictionary<string, Color>()
+        {
+            {"actor_bandit", Color.FromArgb(39,39,39)},
+            {"actor_csky", Color.FromArgb(73,110,149)},
+            {"actor_dolg",Color.FromArgb(131,43,44)},
+            {"actor_ecolog", Color.FromArgb(44,171,152)},
+            {"actor_freedom", Color.FromArgb(61,127,57)},
+            {"actor_stalker", Color.FromArgb(195,146,48)},
+            {"actor_killer", Color.FromArgb(2,75,153)},
+            {"actor_army", Color.FromArgb(118,101,64)},
+            {"actor_monolith", Color.FromArgb(197,148,81)},
+            {"actor_zombied", Color.FromArgb(6,78,19)},
+            {"actor_renegade", Color.DarkGreen},
+            {"actor_greh", Color.FromArgb(199,79,27)},
+            {"actor_isg", Color.Red},
+            {"actor_anonymous", Color.Black}
+        };
+
+        public static Color GetMessageColor(string faction)
+        {
+            return FactionMessageColor[faction];
+        }
+
         private static Dictionary<string, List<string>> loadXmlList(string path)
         {
             Dictionary<string, List<string>> list = new Dictionary<string, List<string>>();
@@ -252,5 +276,6 @@ namespace Chernobyl_Relay_Chat
             catch (Exception ex) when (ex is XmlException || ex is FileNotFoundException) { }
             return listDict;
         }
+
     }
 }

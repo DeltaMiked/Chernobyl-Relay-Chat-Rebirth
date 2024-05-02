@@ -49,7 +49,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>crcr_icon.ico</ApplicationIcon>
+    <ApplicationIcon>crcrr_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
@@ -177,6 +177,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="crcrr_icon.ico" />
     <Content Include="crcr_icon.ico" />
     <None Include="Resources\discord_icon_200x200.png" />
   </ItemGroup>

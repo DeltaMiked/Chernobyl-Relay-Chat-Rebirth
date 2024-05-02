@@ -162,16 +162,17 @@ namespace Chernobyl_Relay_Chat
             AddLine(line, Color.Red);
         }
 
-        public void AddMessage(string nick, string message, Color nickColor)
+        public void AddMessage(string nick, string message, Color nickColor, Color MessageColor)
         {
             Invoke(() =>
             {
+
                 AddLinePrefix();
                 richTextBoxMessages.SelectionFont = boldFont;
                 richTextBoxMessages.SelectionColor = nickColor;
                 richTextBoxMessages.AppendText(nick + ": ");
                 richTextBoxMessages.SelectionFont = mainFont;
-                richTextBoxMessages.SelectionColor = Color.Black;
+                richTextBoxMessages.SelectionColor = MessageColor;
                 richTextBoxMessages.AppendText(message);
             });
         }
@@ -180,7 +181,7 @@ namespace Chernobyl_Relay_Chat
         {
             Invoke(() =>
             {
-                AddMessage(nick, message, Color.Black);
+                AddMessage(nick, message, Color.Black, Color.Black);
                 int start = richTextBoxMessages.GetFirstCharIndexOfCurrentLine();
                 int length = richTextBoxMessages.TextLength - start;
                 richTextBoxMessages.Select(start, length);

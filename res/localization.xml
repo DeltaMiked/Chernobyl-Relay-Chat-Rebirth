@@ -224,6 +224,30 @@ You can join the official Discord server in the Options menu!</eng>
 		<eng>Sound notifications</eng>
 		<rus>Звуковые уведомления</rus>
 	</string>
+	<string id="options_colored_names">
+		<eng>Faction name color</eng>
+		<rus>Цвет названия фракции</rus>
+	</string>
+	<string id="options_colored_messages">
+		<eng>Faction message color</eng>
+		<rus>Цвет сообщения фракции</rus>
+	</string>
+	<string id="options_ingame_colored_messages">
+		<eng>In-game faction message color</eng>
+		<rus>Цвет сообщения внутриигровой фракции</rus>
+	</string>
+	<string id="options_blocklist_label">
+		<eng>Block list</eng>
+		<rus>Черный список</rus>
+	</string>
+	<string id="options_blocklist_addbutton">
+		<eng>Add</eng>
+		<rus>Добавлять</rus>
+	</string>
+	<string id="options_blocklist_removebutton">
+		<eng>Remove</eng>
+		<rus>Удалять</rus>
+	</string>
 	<string id="options_discord_link">
 		<eng>Join CRCR Discord</eng>
 		<rus>CRCR в Discord</rus>

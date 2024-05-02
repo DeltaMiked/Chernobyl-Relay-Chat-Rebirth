@@ -46,6 +46,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxTimestamps = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.linkLabelDiscord = new System.Windows.Forms.LinkLabel();
             this.labelNewsDuration = new System.Windows.Forms.Label();
             this.numericUpDownNewsDuration = new System.Windows.Forms.NumericUpDown();
             this.labelNewsSeconds = new System.Windows.Forms.Label();
@@ -54,14 +55,21 @@
             this.buttonChatKey = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageClient = new System.Windows.Forms.TabPage();
+            this.BlockListRemoveButton = new System.Windows.Forms.Button();
+            this.BlockListAddButton = new System.Windows.Forms.Button();
+            this.BlockList = new System.Windows.Forms.ListBox();
+            this.checkBoxMessageColorToggle = new System.Windows.Forms.CheckBox();
+            this.checkBoxNameColorToggle = new System.Windows.Forms.CheckBox();
             this.checkBoxSoundToggle = new System.Windows.Forms.CheckBox();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.labelLanguage = new System.Windows.Forms.Label();
+            this.BlockListTextBox = new System.Windows.Forms.TextBox();
             this.tabPageGame = new System.Windows.Forms.TabPage();
             this.checkBoxCloseChat = new System.Windows.Forms.CheckBox();
+            this.checkBoxIngameColoredMessages = new System.Windows.Forms.CheckBox();
             this.checkBoxNewsSound = new System.Windows.Forms.CheckBox();
             this.pictureBoxDiscordLogo = new System.Windows.Forms.PictureBox();
-            this.linkLabelDiscord = new System.Windows.Forms.LinkLabel();
+            this.BlockListLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDeath)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNewsDuration)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -72,7 +80,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(156, 376);
+            this.buttonOK.Location = new System.Drawing.Point(146, 576);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -83,7 +91,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(237, 376);
+            this.buttonCancel.Location = new System.Drawing.Point(237, 576);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -184,7 +192,7 @@
             // 
             // numericUpDownDeath
             // 
-            this.numericUpDownDeath.Location = new System.Drawing.Point(6, 288);
+            this.numericUpDownDeath.Location = new System.Drawing.Point(3, 330);
             this.numericUpDownDeath.Maximum = new decimal(new int[] {
             3600,
             0,
@@ -198,7 +206,7 @@
             // labelDeathInterval
             // 
             this.labelDeathInterval.AutoSize = true;
-            this.labelDeathInterval.Location = new System.Drawing.Point(6, 272);
+            this.labelDeathInterval.Location = new System.Drawing.Point(3, 314);
             this.labelDeathInterval.Name = "labelDeathInterval";
             this.labelDeathInterval.Size = new System.Drawing.Size(194, 13);
             this.labelDeathInterval.TabIndex = 12;
@@ -207,7 +215,7 @@
             // labelDeathSeconds
             // 
             this.labelDeathSeconds.AutoSize = true;
-            this.labelDeathSeconds.Location = new System.Drawing.Point(58, 290);
+            this.labelDeathSeconds.Location = new System.Drawing.Point(55, 332);
             this.labelDeathSeconds.Name = "labelDeathSeconds";
             this.labelDeathSeconds.Size = new System.Drawing.Size(47, 13);
             this.labelDeathSeconds.TabIndex = 13;
@@ -235,10 +243,24 @@
             // 
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
+            // linkLabelDiscord
+            // 
+            this.linkLabelDiscord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.linkLabelDiscord.AutoSize = true;
+            this.linkLabelDiscord.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabelDiscord.Location = new System.Drawing.Point(38, 581);
+            this.linkLabelDiscord.Name = "linkLabelDiscord";
+            this.linkLabelDiscord.Size = new System.Drawing.Size(98, 13);
+            this.linkLabelDiscord.TabIndex = 27;
+            this.linkLabelDiscord.TabStop = true;
+            this.linkLabelDiscord.Text = "Join CRCR Discord";
+            this.toolTip1.SetToolTip(this.linkLabelDiscord, "Get the latest news and submit bugs");
+            this.linkLabelDiscord.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDiscord_LinkClicked);
+            // 
             // labelNewsDuration
             // 
             this.labelNewsDuration.AutoSize = true;
-            this.labelNewsDuration.Location = new System.Drawing.Point(6, 88);
+            this.labelNewsDuration.Location = new System.Drawing.Point(6, 118);
             this.labelNewsDuration.Name = "labelNewsDuration";
             this.labelNewsDuration.Size = new System.Drawing.Size(137, 13);
             this.labelNewsDuration.TabIndex = 17;
@@ -246,7 +268,7 @@
             // 
             // numericUpDownNewsDuration
             // 
-            this.numericUpDownNewsDuration.Location = new System.Drawing.Point(6, 104);
+            this.numericUpDownNewsDuration.Location = new System.Drawing.Point(6, 134);
             this.numericUpDownNewsDuration.Maximum = new decimal(new int[] {
             60,
             0,
@@ -271,7 +293,7 @@
             // labelNewsSeconds
             // 
             this.labelNewsSeconds.AutoSize = true;
-            this.labelNewsSeconds.Location = new System.Drawing.Point(58, 106);
+            this.labelNewsSeconds.Location = new System.Drawing.Point(58, 136);
             this.labelNewsSeconds.Name = "labelNewsSeconds";
             this.labelNewsSeconds.Size = new System.Drawing.Size(47, 13);
             this.labelNewsSeconds.TabIndex = 19;
@@ -311,11 +333,17 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(300, 350);
+            this.tabControl1.Size = new System.Drawing.Size(300, 558);
             this.tabControl1.TabIndex = 25;
             // 
             // tabPageClient
             // 
+            this.tabPageClient.Controls.Add(this.BlockListLabel);
+            this.tabPageClient.Controls.Add(this.BlockListRemoveButton);
+            this.tabPageClient.Controls.Add(this.BlockListAddButton);
+            this.tabPageClient.Controls.Add(this.BlockList);
+            this.tabPageClient.Controls.Add(this.checkBoxMessageColorToggle);
+            this.tabPageClient.Controls.Add(this.checkBoxNameColorToggle);
             this.tabPageClient.Controls.Add(this.checkBoxSoundToggle);
             this.tabPageClient.Controls.Add(this.comboBoxLanguage);
             this.tabPageClient.Controls.Add(this.labelLanguage);
@@ -323,6 +351,7 @@
             this.tabPageClient.Controls.Add(this.radioButtonFactionManual);
             this.tabPageClient.Controls.Add(this.comboBoxFaction);
             this.tabPageClient.Controls.Add(this.labelName);
+            this.tabPageClient.Controls.Add(this.BlockListTextBox);
             this.tabPageClient.Controls.Add(this.textBoxName);
             this.tabPageClient.Controls.Add(this.buttonRandom);
             this.tabPageClient.Controls.Add(this.label4);
@@ -332,13 +361,61 @@
             this.tabPageClient.Controls.Add(this.numericUpDownDeath);
             this.tabPageClient.Controls.Add(this.labelDeathInterval);
             this.tabPageClient.Controls.Add(this.checkBoxDeathReceive);
-            this.tabPageClient.Location = new System.Drawing.Point(4, 22);
+            this.tabPageClient.Location = new System.Drawing.Point(4, 24);
             this.tabPageClient.Name = "tabPageClient";
             this.tabPageClient.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageClient.Size = new System.Drawing.Size(292, 324);
+            this.tabPageClient.Size = new System.Drawing.Size(292, 530);
             this.tabPageClient.TabIndex = 0;
             this.tabPageClient.Text = "Client";
             this.tabPageClient.UseVisualStyleBackColor = true;
+            // 
+            // BlockListRemoveButton
+            // 
+            this.BlockListRemoveButton.Location = new System.Drawing.Point(209, 408);
+            this.BlockListRemoveButton.Name = "BlockListRemoveButton";
+            this.BlockListRemoveButton.Size = new System.Drawing.Size(75, 23);
+            this.BlockListRemoveButton.TabIndex = 23;
+            this.BlockListRemoveButton.Text = "Remove";
+            this.BlockListRemoveButton.UseVisualStyleBackColor = true;
+            this.BlockListRemoveButton.Click += new System.EventHandler(this.BlockListRemoveButton_Click);
+            // 
+            // BlockListAddButton
+            // 
+            this.BlockListAddButton.Location = new System.Drawing.Point(130, 408);
+            this.BlockListAddButton.Name = "BlockListAddButton";
+            this.BlockListAddButton.Size = new System.Drawing.Size(75, 23);
+            this.BlockListAddButton.TabIndex = 23;
+            this.BlockListAddButton.Text = "Add";
+            this.BlockListAddButton.UseVisualStyleBackColor = true;
+            this.BlockListAddButton.Click += new System.EventHandler(this.BlockListAddButton_Click);
+            // 
+            // BlockList
+            // 
+            this.BlockList.FormattingEnabled = true;
+            this.BlockList.Location = new System.Drawing.Point(4, 382);
+            this.BlockList.Name = "BlockList";
+            this.BlockList.Size = new System.Drawing.Size(120, 95);
+            this.BlockList.TabIndex = 22;
+            // 
+            // checkBoxMessageColorToggle
+            // 
+            this.checkBoxMessageColorToggle.AutoSize = true;
+            this.checkBoxMessageColorToggle.Location = new System.Drawing.Point(6, 294);
+            this.checkBoxMessageColorToggle.Name = "checkBoxMessageColorToggle";
+            this.checkBoxMessageColorToggle.Size = new System.Drawing.Size(132, 17);
+            this.checkBoxMessageColorToggle.TabIndex = 21;
+            this.checkBoxMessageColorToggle.Text = "Faction message color";
+            this.checkBoxMessageColorToggle.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxNameColorToggle
+            // 
+            this.checkBoxNameColorToggle.AutoSize = true;
+            this.checkBoxNameColorToggle.Location = new System.Drawing.Point(6, 271);
+            this.checkBoxNameColorToggle.Name = "checkBoxNameColorToggle";
+            this.checkBoxNameColorToggle.Size = new System.Drawing.Size(116, 17);
+            this.checkBoxNameColorToggle.TabIndex = 21;
+            this.checkBoxNameColorToggle.Text = "Faction name color";
+            this.checkBoxNameColorToggle.UseVisualStyleBackColor = true;
             // 
             // checkBoxSoundToggle
             // 
@@ -372,9 +449,17 @@
             this.labelLanguage.TabIndex = 16;
             this.labelLanguage.Text = "Language";
             // 
+            // BlockListTextBox
+            // 
+            this.BlockListTextBox.Location = new System.Drawing.Point(130, 382);
+            this.BlockListTextBox.Name = "BlockListTextBox";
+            this.BlockListTextBox.Size = new System.Drawing.Size(154, 20);
+            this.BlockListTextBox.TabIndex = 3;
+            // 
             // tabPageGame
             // 
             this.tabPageGame.Controls.Add(this.checkBoxCloseChat);
+            this.tabPageGame.Controls.Add(this.checkBoxIngameColoredMessages);
             this.tabPageGame.Controls.Add(this.checkBoxNewsSound);
             this.tabPageGame.Controls.Add(this.labelNewsDuration);
             this.tabPageGame.Controls.Add(this.buttonChatKey);
@@ -382,10 +467,10 @@
             this.tabPageGame.Controls.Add(this.textBoxChatKey);
             this.tabPageGame.Controls.Add(this.labelNewsSeconds);
             this.tabPageGame.Controls.Add(this.labelChatKey);
-            this.tabPageGame.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGame.Location = new System.Drawing.Point(4, 24);
             this.tabPageGame.Name = "tabPageGame";
             this.tabPageGame.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGame.Size = new System.Drawing.Size(292, 324);
+            this.tabPageGame.Size = new System.Drawing.Size(292, 530);
             this.tabPageGame.TabIndex = 1;
             this.tabPageGame.Text = "In-game";
             this.tabPageGame.UseVisualStyleBackColor = true;
@@ -399,6 +484,16 @@
             this.checkBoxCloseChat.TabIndex = 26;
             this.checkBoxCloseChat.Text = "Close chat after sending";
             this.checkBoxCloseChat.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxIngameColoredMessages
+            // 
+            this.checkBoxIngameColoredMessages.AutoSize = true;
+            this.checkBoxIngameColoredMessages.Location = new System.Drawing.Point(6, 91);
+            this.checkBoxIngameColoredMessages.Name = "checkBoxIngameColoredMessages";
+            this.checkBoxIngameColoredMessages.Size = new System.Drawing.Size(170, 17);
+            this.checkBoxIngameColoredMessages.TabIndex = 25;
+            this.checkBoxIngameColoredMessages.Text = "In-game faction message color";
+            this.checkBoxIngameColoredMessages.UseVisualStyleBackColor = true;
             // 
             // checkBoxNewsSound
             // 
@@ -414,26 +509,21 @@
             // 
             this.pictureBoxDiscordLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBoxDiscordLogo.Image = global::Chernobyl_Relay_Chat.Properties.Resources.discord_icon_200x200;
-            this.pictureBoxDiscordLogo.Location = new System.Drawing.Point(10, 376);
+            this.pictureBoxDiscordLogo.Location = new System.Drawing.Point(10, 576);
             this.pictureBoxDiscordLogo.Name = "pictureBoxDiscordLogo";
             this.pictureBoxDiscordLogo.Size = new System.Drawing.Size(32, 23);
             this.pictureBoxDiscordLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxDiscordLogo.TabIndex = 26;
             this.pictureBoxDiscordLogo.TabStop = false;
             // 
-            // linkLabelDiscord
+            // BlockListLabel
             // 
-            this.linkLabelDiscord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.linkLabelDiscord.AutoSize = true;
-            this.linkLabelDiscord.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkLabelDiscord.Location = new System.Drawing.Point(38, 381);
-            this.linkLabelDiscord.Name = "linkLabelDiscord";
-            this.linkLabelDiscord.Size = new System.Drawing.Size(98, 13);
-            this.linkLabelDiscord.TabIndex = 27;
-            this.linkLabelDiscord.TabStop = true;
-            this.linkLabelDiscord.Text = "Join CRCR Discord";
-            this.toolTip1.SetToolTip(this.linkLabelDiscord, "Get the latest news and submit bugs");
-            this.linkLabelDiscord.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDiscord_LinkClicked);
+            this.BlockListLabel.AutoSize = true;
+            this.BlockListLabel.Location = new System.Drawing.Point(6, 366);
+            this.BlockListLabel.Name = "BlockListLabel";
+            this.BlockListLabel.Size = new System.Drawing.Size(62, 13);
+            this.BlockListLabel.TabIndex = 24;
+            this.BlockListLabel.Text = "Block users";
             // 
             // OptionsForm
             // 
@@ -441,7 +531,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(324, 411);
+            this.ClientSize = new System.Drawing.Size(332, 620);
             this.Controls.Add(this.linkLabelDiscord);
             this.Controls.Add(this.pictureBoxDiscordLogo);
             this.Controls.Add(this.tabControl1);
@@ -449,9 +539,9 @@
             this.Controls.Add(this.buttonOK);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(340, 450);
+            this.MaximumSize = new System.Drawing.Size(340, 650);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(340, 450);
+            this.MinimumSize = new System.Drawing.Size(340, 650);
             this.Name = "OptionsForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -504,5 +594,13 @@
         private System.Windows.Forms.CheckBox checkBoxSoundToggle;
         private System.Windows.Forms.PictureBox pictureBoxDiscordLogo;
         private System.Windows.Forms.LinkLabel linkLabelDiscord;
+        private System.Windows.Forms.CheckBox checkBoxMessageColorToggle;
+        private System.Windows.Forms.CheckBox checkBoxNameColorToggle;
+        private System.Windows.Forms.CheckBox checkBoxIngameColoredMessages;
+        private System.Windows.Forms.ListBox BlockList;
+        private System.Windows.Forms.TextBox BlockListTextBox;
+        private System.Windows.Forms.Button BlockListRemoveButton;
+        private System.Windows.Forms.Button BlockListAddButton;
+        private System.Windows.Forms.Label BlockListLabel;
     }
 }
